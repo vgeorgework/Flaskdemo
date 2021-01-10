@@ -11,10 +11,10 @@ This is a demo project to show how to deploy a two tier application using a kube
 - [Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) CLI installed.
 
 ## Custer Architecture
-![Cluster Architecture image](https://github.com/vgeorgework/Flaskdemo/blob/master/readme_images/minikube%20cluster.jpg)
+![Cluster Architecture image](https://github.com/vgeorgework/Flaskdemo/blob/master/.readme_images/minikube%20cluster.jpg)
 
 ##  Summary
-The flaskapp image that we created using Dockerfile is pushed to dockerhub public repository(*[flaskapp](https://hub.docker.com/r/vgeorgework/flaskapp)*). The cluster creates a flaskapp service to redirect traffic to front end pods which is replicated by replicaset. the Mysql service is deployed by statefulset. The pod mysql uses a persistant volume claim to claim the persistant volume. The cluster also creates Configmaps and Secrets to setup environment variables.
+The flaskapp image that we created using Dockerfile is pushed to dockerhub public repository(*[flaskapp](https://hub.docker.com/r/vgeorgework/flaskapp)*). The cluster creates a flaskapp service to redirect traffic to front end pods which is replicated by replicaset. the Mysql service is deployed by statefulset. The pod mysql uses a persistant volume claim to claim the persistant volume. The cluster also creates Configmaps and Secrets to setup environment variables. Helm chart is used to deploy the entire kuberneties cluster.
 
 
 ## To run this project execute below commands using minikube.<br />
@@ -30,11 +30,9 @@ Example :`# kubectl create -f mysql-svc-deploy.yaml ` this will deploy all the c
 
 ## To execute the project using helm chart:
 
-Step1: clone the github repo using `#git clone https://github.com/vgeorgework/Flask_.git` 
-Step2: change directory `#cd Flask_` 
-Step3: checkout "helmchart" branch `#git checkout helmchart` 
-Step4: execute setup.sh file #sh setup.sh     //will create flask app and MySQL services in your PC and opens up your default browser. 
+ 1. clone the github repo using `#git clone https://github.com/vgeorgework/Flaskdemo.git` 
+ 2. change directory `#cd Flaskdemo` 
+ 3. execute setup.sh file #sh setup.sh   //will create flask app and MySQL services in your PC and opens up your default browser. 
 
 > For your ease of use, I created a "setup.sh" script to execute all the
-> steps automatically. The shell script I created expects the following
-> programs to be installed on your PC.
+> steps automatically. 

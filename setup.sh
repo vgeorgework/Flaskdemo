@@ -1,8 +1,7 @@
 #!/bin/sh
 #To execute this script the host machine needs to installed minikube, helm, git and kubectl
-# git clone https://github.com/vgeorgework/Flask_.git
-# cd Flask_
-# git checkout helmchart
+# git clone https://github.com/vgeorgework/Flaskdemo.git
+# cd Flaskdemo
 minikube start
 eval $(minikube docker-env)
 helm install --set db.username=testuser,db.password=user@123 flaskapp helmcharts/
