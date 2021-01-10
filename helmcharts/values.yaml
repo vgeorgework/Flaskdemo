@@ -1,0 +1,14 @@
+#Flask app values.
+app:
+  flaskreplicaCount: 2
+
+#Database values.
+db:
+  mysqlreplicaCount: 1
+  username: #dGVzdHVzZXI=
+  password: #dGVzdHVzZXJAMTIz
+  host: mysql
+  db_name: TEST
+  #db-root-credentials
+  rootpassword: YWRtaW4xMjM=
+

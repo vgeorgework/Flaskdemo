@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-deploy
+  labels:
+    app: flask-deploy
+spec:
+  replicas: {{ .Values.app.flaskreplicaCount}}
+  selector:
+    matchLabels:
+      app: flask-web
+  template:
+    metadata:
+      labels:
+        app: flask-web
+    spec:
+      containers:
+      - name: flask-web
+        image: vgeorgework/flaskapp:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        env:
+        - name: MYSQL_USER # Setting USER username on mysql From a 'Secret'
+          valueFrom:
+            secretKeyRef:
+              name: db-root-credentials-flask
+              key: username
+        - name: MYSQL_PASSWORD # Setting USER username on mysql From a 'Secret'
+          valueFrom:
+            secretKeyRef:
+              name: db-root-credentials-flask
+              key: password
+        - name: MYSQL_DATABASE # Setting Database Name from a 'ConfigMap'
+          valueFrom:
+            configMapKeyRef:
+              name: db-conf-flask
+              key: name
+        - name: MYSQL_HOST # Setting Database Name from a 'ConfigMap'
+          valueFrom:
+            configMapKeyRef:
+              name: db-conf-flask
+              key: host

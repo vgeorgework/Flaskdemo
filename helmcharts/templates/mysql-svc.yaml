@@ -1,0 +1,16 @@
+# Define a 'Service' To Expose mysql to Other Services
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql  # DNS name 
+  labels:
+    app: mysql
+    tier: database
+spec:
+  ports:
+    - port: 3306
+      targetPort: 3306
+  selector:       # mysql Pod Should contain same labels
+    app: mysql
+    tier: database
+  clusterIP: None  # We Use DNS, Thus ClusterIP is not relevant

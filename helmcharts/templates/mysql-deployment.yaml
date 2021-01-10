@@ -1,0 +1,58 @@
+# Configure 'Statefulset' of mysql server
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+    tier: database
+spec:
+  replicas: {{ .Values.db.mysqlreplicaCount}}
+  serviceName: "mysql"
+  selector: # mysql Pod Should contain same labels 
+    matchLabels:
+      app: mysql
+      tier: database
+  template:
+    metadata:
+      labels: # Must match 'Service' and 'Deployment' selectors
+        app: mysql
+        tier: database
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - image: mysql:5.7 # image from docker-hub
+        args:
+          - "--ignore-db-dir=lost+found" # Workaround for https://github.com/docker-library/mysql/issues/186
+        name: mysql 
+        env:
+        - name: MYSQL_ROOT_PASSWORD # Setting Root Password of mysql From a 'Secret'
+          valueFrom:
+            secretKeyRef:
+              name: db-root-credentials # Name of the 'Secret'
+              key: password   # 'key' inside the Secret which contains required 'value'
+        - name: MYSQL_USER # Setting USER username on mysql From a 'Secret'
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: username
+        - name: MYSQL_PASSWORD # Setting USER Password on mysql From a 'Secret'
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: password
+        - name: MYSQL_DATABASE # Setting Database Name from a 'ConfigMap'
+          valueFrom:
+            configMapKeyRef:
+              name: db-conf
+              key: name
+        ports:
+        - containerPort: 3306
+          name: mysql
+        volumeMounts:        # Mounting voulume obtained from Persistent Volume Claim
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql #This is the path in the container on which the mounting will take place.
+      volumes:
+      - name: mysql-persistent-storage # Obtaining 'vloume' from PVC
+        persistentVolumeClaim:
+          claimName: mysql-pv-claim
