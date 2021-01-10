@@ -22,7 +22,7 @@ The flaskapp image that we created using Dockerfile is pushed to dockerhub publi
 ```
 # minikube start
 # eval $(minikube docker-env)
-# cd Flask_/resources/ 
+# cd Flaskdemo/k8s_resources/ 
 ```
 Execute both deployment files inside mysql and flaskapp folders respectively using k8s. <br />
 Example :`# kubectl create -f mysql-svc-deploy.yaml ` this will deploy all the configuration for k8s cluster. <br />
