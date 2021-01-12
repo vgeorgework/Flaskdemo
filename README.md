@@ -11,7 +11,7 @@ This is a demo project to show how to deploy a two tier application using a kube
 - [Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) CLI installed.
 
 ## Custer Architecture
-![Cluster Architecture image](https://github.com/vgeorgework/Flaskdemo/blob/master/.readme_images/minikube%20cluster.jpg)
+![Cluster Architecture image](https://github.com/vgeorgework/Flaskdemo/blob/master/.readme_images/minikube%20cluster.png)
 
 ##  Summary
 The flaskapp image that we created using Dockerfile is pushed to dockerhub public repository(*[flaskapp](https://hub.docker.com/r/vgeorgework/flaskapp)*). The cluster creates a flaskapp service to redirect traffic to front end pods which is replicated by replicaset. the Mysql service is deployed by statefulset. The pod mysql uses a persistant volume claim to claim the persistant volume. The cluster also creates Configmaps and Secrets to setup environment variables. Helm chart is used to deploy the entire kuberneties cluster.
