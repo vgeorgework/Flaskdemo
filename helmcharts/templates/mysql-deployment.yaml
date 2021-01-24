@@ -21,11 +21,6 @@ spec:
     spec:
       terminationGracePeriodSeconds: 10
       containers: 
-        resources:
-            limits:
-              cpu: "100m"
-            requests:
-              cpu: "100m"
       - image: mysql:5.7 # image from docker-hub
         args:
           - "--ignore-db-dir=lost+found" # Workaround for https://github.com/docker-library/mysql/issues/186
@@ -51,6 +46,11 @@ spec:
             configMapKeyRef:
               name: db-conf
               key: name
+        resources:
+            limits:
+              cpu: "100m"
+            requests:
+              cpu: "100m"
         ports:
         - containerPort: 3306
           name: mysql
