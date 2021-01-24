@@ -20,7 +20,12 @@ spec:
         tier: database
     spec:
       terminationGracePeriodSeconds: 10
-      containers:
+      containers: 
+        resources:
+            limits:
+              cpu: "100m"
+            requests:
+              cpu: "100m"
       - image: mysql:5.7 # image from docker-hub
         args:
           - "--ignore-db-dir=lost+found" # Workaround for https://github.com/docker-library/mysql/issues/186

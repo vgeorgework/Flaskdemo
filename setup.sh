@@ -4,6 +4,7 @@
 # cd Flaskdemo
 minikube start
 eval $(minikube docker-env)
+minikube addons enable metrics-server
 helm install --set db.username=testuser,db.password=user@123 flaskapp helmcharts/
 kubectl get all
 echo "sleeper executed for around 2 mins for cluster creation............................................................."
