@@ -1,0 +1,8 @@
+**/tests
+**/k8s_resources
+**/helmcharts
+**/.readme_images
+*.md
+*.pyc
+*.sh
+Dockerfile
