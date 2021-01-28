@@ -1,0 +1,30 @@
+version: "3"
+services:
+  flaskapp:
+    build: .
+    restart: always
+    depends_on:
+      - mysql
+    ports:
+      - "80:5000"
+    environment:
+      MYSQL_USER: vineeth
+      MYSQL_PASSWORD: toor
+      MYSQL_HOST: mysql
+      MYSQL_DATABASE: testdb
+    networks:
+      - backend
+  mysql:
+    image: "mysql:latest"
+    hostname: mysql
+    restart: always
+    environment: 
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_USER: vineeth
+      MYSQL_PASSWORD: toor
+      MYSQL_DATABASE: testdb
+    networks:
+      - backend
+networks:
+  backend:
+    driver: bridge

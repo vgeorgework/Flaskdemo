@@ -1,11 +1,9 @@
 FROM python:3.6
 MAINTAINER Vineeth George
 RUN mkdir -p /app
-RUN ls /app
-COPY . /app
-RUN ls /app
+COPY requirements.txt /app
 WORKDIR /app
-EXPOSE 5000
 RUN pip install -r requirements.txt
+COPY . /app
+EXPOSE 5000
 CMD python3 app.py
-
