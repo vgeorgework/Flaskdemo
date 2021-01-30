@@ -11,17 +11,16 @@ spec:
     name: flask-deploy
   targetCPUUtilizationPercentage: 20
 
----
-apiVersion: autoscaling/v1
-kind: HorizontalPodAutoscaler
-metadata:
-  name: mysql-hpa
-spec:
-  maxReplicas: 5
-  minReplicas: 2
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: StatefulSet
-    name: mysql
-  targetCPUUtilizationPercentage: 20
-
+# ---
+# apiVersion: autoscaling/v1
+# kind: HorizontalPodAutoscaler
+# metadata:
+#   name: mysql-hpa
+# spec:
+#   maxReplicas: 5
+#   minReplicas: 2
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: StatefulSet
+#     name: mysql
+#   targetCPUUtilizationPercentage: 20
