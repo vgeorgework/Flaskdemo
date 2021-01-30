@@ -51,6 +51,15 @@ spec:
               cpu: "100m"
             requests:
               cpu: "100m"
+        readinessProbe:
+          exec:
+            command:
+            - bash
+            - "-c"
+            - |
+            - mysql -h 127.0.0.1 -p$MYSQL_ROOT_PASSWORD -e "SELECT 1" > /dev/null
+          initialDelaySeconds: 10
+          periodSeconds: 5 
         ports:
         - containerPort: 3306
           name: mysql
