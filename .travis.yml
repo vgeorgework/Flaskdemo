@@ -6,7 +6,7 @@ before_install:
   - docker build -t vgeorgework/flaskapp .
 
 script:
-  - docker run vgeorgework/flaskapp 
+  - docker run -d vgeorgework/flaskapp 
 
 after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
