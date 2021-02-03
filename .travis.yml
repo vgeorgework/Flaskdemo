@@ -1,0 +1,13 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t vgeorgework/flaskapp .
+
+script:
+  - docker run vgeorgework/flaskapp 
+
+after_success:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push vgeorgework/flaskapp
