@@ -15,18 +15,6 @@ spec:
     tier: database
   clusterIP: None  # We Use DNS, Thus ClusterIP is not relevant
 ---
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-    name: pv-mysql
-spec:
-    accessModes:
-        - ReadWriteOnce
-    capacity:
-        storage: 1Gi
-    hostPath:
-        path: /tmp/data
----
 # Define a 'Persistent Voulume Claim'(PVC) for Mysql Storage, dynamically provisioned by cluster
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -35,12 +23,19 @@ metadata:
   labels:
     app: mysql
     tier: database
+  annotations:
+    volume.beta.kubernetes.io/storage-class: ""
 spec:
   accessModes:
-    - ReadWriteOnce   #This specifies the mode of the claim that we are trying to create.
+    - ReadWriteMany   #Tis specifies the mode of the claim that we are trying to create.
   resources:
     requests:
-      storage: 1Gi    #This will tell kubernetes about the amount of space we are trying to claim.
+      storage: 5Gi 
+  selector:
+    matchLabels:
+      usage: fileshare-pv
+
+      #This will tell kubernetes about the amount of space we are trying to claim.
 ---
 # Configure 'Deployment' of mysql server
 apiVersion: apps/v1
@@ -94,13 +89,17 @@ spec:
         ports:
         - containerPort: 3306
           name: mysql
-        volumeMounts:        # Mounting voulume obtained from Persistent Volume Claim
-        - name: mysql-persistent-storage
-          mountPath: /var/lib/mysql #This is the path in the container on which the mounting will take place.
+          #volumeMounts:        # Mounting voulume obtained from Persistent Volume Claim
+          #- name: mysql-persistent-storage
+          #  mountPath: /var/lib/mysql #This is the path in the container on which the mounting will take place.
       volumes:
       - name: mysql-persistent-storage # Obtaining 'vloume' from PVC
         persistentVolumeClaim:
-          claimName: mysql-pv-claim
+         claimName: mysql-pv-claim
+         #azureFile:
+         # secretName: azure-secret
+         # shareName: configfiles
+         # readOnly: false
 ---
 apiVersion: v1
 kind: Secret
