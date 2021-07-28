@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-fileshare-pv
+  labels:
+    usage: mysql-fileshare-pv
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  azureFile:
+    secretName: azure-secret
+    #secretNamespace: default
+    shareName: mysql-fileshare
+    readOnly: false
+  mountOptions:
+   - dir_mode=0777
+   - file_mode=0777
+   - uid=1000
+   - gid=1000
+   - mfsymlinks
+   - nobrl
