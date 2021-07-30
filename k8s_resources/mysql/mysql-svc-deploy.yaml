@@ -93,10 +93,10 @@ spec:
         volumeMounts:        # Mounting voulume obtained from Persistent Volume Claim
          - name: azure
            mountPath: /var/lib/mysql #This is the path in the container on which the mounting will take place.
-        resources:
-          requests:
-            cpu: 700m
-            memory: 2Gi
+#         resources:
+#           requests:
+#             cpu: 700m
+#             memory: 2Gi
       volumes:
       - name: azure # Obtaining 'vloume' from PVC
         #azureFile:
